@@ -1,0 +1,176 @@
+.footer {
+  margin-top: var(--section-gap);
+  padding-bottom: var(--space-6);
+}
+
+/* Contact panel: the last call to action on every page. */
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-6) var(--space-8);
+  padding: clamp(28px, 5vw, 64px);
+  overflow: hidden;
+  background:
+    radial-gradient(70% 120% at 100% 0%, var(--glow), transparent 60%),
+    var(--bg-elev);
+}
+
+.panelText {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--step-4);
+  font-weight: 800;
+  font-stretch: 106%;
+  letter-spacing: -0.04em;
+}
+
+.note {
+  max-width: 44ch;
+  font-size: var(--step-1);
+  color: var(--ink-2);
+}
+
+.panelActions {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Direct contact details, label then value. Set in the sans, not the mono:
+   a monospaced space is as wide as a digit, which pulls a phone number apart. */
+.direct {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.direct li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.directLabel {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.direct a {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration-color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.direct a[href^="tel:"] {
+  white-space: nowrap;
+}
+
+/* Phones: label above value, so the email address keeps the full width. */
+@media (max-width: 480px) {
+  .direct li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+.direct a:hover {
+  color: var(--ink);
+}
+
+.columns {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hairline);
+  row-gap: var(--space-6);
+}
+
+.column {
+  grid-column: span 2;
+}
+
+.toTop {
+  grid-column: -4 / -1;
+  justify-self: end;
+  align-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.toTop:hover {
+  color: var(--ink);
+}
+
+.toTop:hover :global(.round-arrow) {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+.heading {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 500;
+  font-stretch: 100%;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-1);
+  list-style: none;
+  font-size: 0.9375rem;
+}
+
+/* Sans with tabular figures: the mono face spaces "Lahore · 23:25" too widely. */
+.time {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.sign {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-7);
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+
+  .column {
+    grid-column: span 6;
+  }
+
+  .toTop {
+    grid-column: span 6;
+    justify-self: start;
+  }
+}

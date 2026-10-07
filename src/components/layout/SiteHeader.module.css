@@ -1,0 +1,148 @@
+/* A floating glass capsule. The header strip itself is transparent and lets
+   clicks through; only the capsule is interactive. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: 12px;
+  pointer-events: none;
+}
+
+/* Desktop: brand · links · theme on one line. Phones: brand and theme, links below. */
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "mark nav theme";
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
+  min-height: calc(var(--header-h) - 12px);
+  padding: 7px 7px 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--hairline-strong) 85%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elev) 78%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 16px 40px -20px rgb(0 0 0 / 0.45);
+  backdrop-filter: saturate(160%) blur(16px);
+  pointer-events: auto;
+}
+
+.brand {
+  grid-area: mark;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.02em;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.brand:hover .mark {
+  transform: rotate(-6deg);
+}
+
+.brandText {
+  display: grid;
+  line-height: 1.15;
+}
+
+.wordmark {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  font-stretch: 110%;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.brandRole {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.nav {
+  grid-area: nav;
+  justify-self: end;
+}
+
+.theme {
+  grid-area: theme;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 var(--space-3);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.link[aria-current="page"] {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+@media (max-width: 640px) {
+  .bar {
+    padding: 8px 8px 6px 10px;
+    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+    border-radius: 22px;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "mark theme"
+      "nav nav";
+  }
+
+  .nav {
+    justify-self: start;
+    margin-left: -6px;
+  }
+
+  .brandRole {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark,
+  .link {
+    transition: none;
+  }
+
+  .brand:hover .mark {
+    transform: none;
+  }
+}

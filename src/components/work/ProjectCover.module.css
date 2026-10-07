@@ -1,0 +1,177 @@
+/* Everything inside scales with the cover's width through --u (1% of it),
+   so a cover looks the same in a wide row, a narrow grid cell or the index. */
+.frame {
+  --u: 1cqi;
+  /* 1: card covers zoom into a screenshot; 0: show its full width. */
+  --zoom-in: 1;
+
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  background:
+    radial-gradient(60% 80% at var(--gx, 50%) var(--gy, 0%), var(--glow), transparent 70%),
+    linear-gradient(180deg, var(--surface), var(--bg-elev));
+}
+
+/* Hairline border drawn over the artwork so the window cannot cover it. */
+.frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  pointer-events: none;
+}
+
+.card {
+  aspect-ratio: 3 / 2;
+}
+
+.hero {
+  --u: 0.7cqi;
+  --zoom-in: 0;
+
+  aspect-ratio: 1200 / 514;
+}
+
+/* ---------- The app window, bleeding off the bottom-right corner ---------- */
+
+.window {
+  position: absolute;
+  inset: 14% -3% -8% 9%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline-strong);
+  border-radius: calc(var(--u) * 2.4);
+  overflow: hidden;
+  background: var(--bg-elev);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 calc(var(--u) * 5) calc(var(--u) * 14) calc(var(--u) * -4) rgb(0 0 0 / 0.45);
+  transition: translate 700ms var(--ease-out);
+}
+
+.hero .window {
+  inset: 14% 38% -10% 6%;
+}
+
+/* A real screen on a case study takes the full width. */
+.hero.screen .window {
+  inset: 11% 6% -10% 6%;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 2.4);
+  padding: calc(var(--u) * 2) calc(var(--u) * 2.8);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.dots {
+  display: inline-flex;
+  gap: calc(var(--u) * 1);
+}
+
+.dots i {
+  width: calc(var(--u) * 1.4);
+  height: calc(var(--u) * 1.4);
+  border-radius: 50%;
+  background: var(--hairline-strong);
+}
+
+.address {
+  min-width: 0;
+  overflow: hidden;
+  padding: calc(var(--u) * 0.4) calc(var(--u) * 2);
+  border-radius: 999px;
+  background: var(--surface);
+  font-family: var(--font-data);
+  font-size: max(8px, calc(var(--u) * 2.1));
+  color: var(--muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.content {
+  padding: calc(var(--u) * 3.6) calc(var(--u) * 4.4);
+}
+
+/* Screenshots sit flush under the bar and fill the rest of the window. */
+.flush {
+  flex: 1;
+  min-height: 0;
+}
+
+.sideLabel {
+  font-size: max(10px, calc(var(--u) * 1.9));
+  color: var(--muted);
+}
+
+/* ---------- Case study only: a second card listing the stack ---------- */
+
+.side {
+  position: absolute;
+  top: 24%;
+  right: 6%;
+  width: 30%;
+  padding: calc(var(--u) * 3.2);
+  border: 1px solid var(--hairline-strong);
+  border-radius: calc(var(--u) * 2.4);
+  background: var(--bg-elev);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 calc(var(--u) * 5) calc(var(--u) * 14) calc(var(--u) * -4) rgb(0 0 0 / 0.45);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--u) * 1.1);
+  margin-top: calc(var(--u) * 2.2);
+  list-style: none;
+}
+
+.stack li {
+  padding: calc(var(--u) * 0.6) calc(var(--u) * 1.6);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  font-size: max(10px, calc(var(--u) * 1.7));
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* Parents opt in to a small lift on hover by adding data-cover-hover. */
+:global([data-cover-hover]:hover) .window {
+  translate: 0 calc(var(--u) * -1.6);
+}
+
+/* Phones: the case-study cover becomes a card-shaped cover. */
+@media (max-width: 720px) {
+  .hero {
+    --u: 1cqi;
+    --zoom-in: 1;
+
+    aspect-ratio: 3 / 2;
+  }
+
+  .hero .window {
+    inset: 14% -3% -8% 9%;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window {
+    transition: none;
+  }
+
+  :global([data-cover-hover]:hover) .window {
+    translate: none;
+  }
+}

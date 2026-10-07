@@ -1,0 +1,64 @@
+.header {
+  align-items: end;
+  margin-bottom: var(--space-7);
+  row-gap: var(--space-3);
+}
+
+.title {
+  grid-column: 1 / span 8;
+  font-size: var(--step-3);
+  font-weight: 700;
+  font-stretch: 106%;
+  letter-spacing: -0.035em;
+}
+
+/* A small accent tick before each section title. */
+.title::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 3px;
+  margin-bottom: var(--space-4);
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.aside {
+  grid-column: 9 / -1;
+  justify-self: end;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.aside a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.aside a::after {
+  content: "→";
+  margin-left: var(--space-2);
+}
+
+.aside a:hover {
+  border-color: var(--ink-2);
+}
+
+@media (max-width: 720px) {
+  .title,
+  .aside {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .header {
+    margin-bottom: var(--space-6);
+  }
+}

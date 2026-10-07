@@ -1,0 +1,25 @@
+# Bassam Rahat
+
+> Senior Software Engineer in Lahore, Pakistan (PKT, UTC+5). Builds multi-tenant SaaS platforms in C#/.NET, Angular and Next.js, and production AI features on the Anthropic Claude API. Over five years building software professionally, since January 2021.
+
+## Pages
+
+- [Home](/): overview, headline figures, selected work, experience
+- [Work](/work): all eleven projects, filterable by type
+- [About](/about): background, full experience, skills
+- [Résumé (PDF)](/bassam-rahat-resume.pdf)
+
+## Selected case studies
+
+- [SupportDesk](/work/supportdesk): multi-tenant help desk, .NET 10 + Next.js 16; 3 organisations, ~10,000 tickets a month; Claude sentiment analysis and reply assistant
+- [My Race Setup](/work/my-race-setup): subscription SaaS rebuilt in a team of two; AI Crew Chief on Claude with web search; Stripe billing
+- [AmeriCorps](/work/americorps): led a backend team of ~15 developers at Devsinc; Android/iOS apps with Ionic and Capacitor
+- [Teranet Undertakings](/work/teranet-undertakings): ~15 .NET 9 microservices monitoring 10,000+ properties for 50 tenants
+- [MCP Server](/work/mcp-server): read-only Model Context Protocol server for AI assistants
+
+## Contact
+
+- Email: rahatbassaam9988@gmail.com
+- Phone: +92 323 4839988
+- LinkedIn: https://www.linkedin.com/in/bassam-rahat-060932177
+- GitHub: https://github.com/Bassam-Rahat

@@ -1,0 +1,390 @@
+import type { Project } from "@/types/domain";
+import americorpsHome from "./screens/americorps-home.png";
+import dascoOnlineCatalogue from "./screens/dasco-online-catalogue.png";
+import dascoSalesHome from "./screens/dasco-sales-home.png";
+import doclientportalActivity from "./screens/doclientportal-activity.png";
+import dodocsIdv from "./screens/dodocs-idv.png";
+import keaInternationalHome from "./screens/kea-international-home.png";
+import myRaceSetupDashboard from "./screens/my-race-setup-dashboard.png";
+import supportdeskTickets from "./screens/supportdesk-tickets.png";
+import techxlogiHome from "./screens/techxlogi-home.png";
+import teranetMonitoring from "./screens/teranet-monitoring.png";
+
+/**
+ * Every project shown on the site. Order here does not matter:
+ * the repository sorts by `sortYear` and keeps featured work first where needed.
+ */
+export const projects: Project[] = [
+  {
+    slug: "supportdesk",
+    title: "SupportDesk",
+    tagline: "A multi-tenant help desk with AI in the loop",
+    summary:
+      "SupportDesk turns customer email into tracked tickets with SLAs, routing and reporting, for several organisations on one platform. I built it end to end, from the .NET 10 API to the Next.js front end, including the AI features and the integration API for customers' own AI agents.",
+    period: "2026",
+    sortYear: 2026,
+    organisation: "Nuclieos",
+    role: "Full-stack engineer, end to end",
+    categories: ["ai", "saas", "portal"],
+    cover: { kind: "screenshot", image: supportdeskTickets },
+    stack: [
+      ".NET 10",
+      "ASP.NET Core",
+      "EF Core",
+      "PostgreSQL",
+      "MediatR",
+      "Hangfire",
+      "SignalR",
+      "Next.js 16",
+      "React 19",
+      "TanStack Query",
+      "Anthropic Claude",
+      "Postmark",
+      "Cloudflare R2",
+      "Docker",
+    ],
+    metrics: [
+      { value: "3", label: "organisations in production" },
+      { value: "~10,000", label: "tickets a month" },
+      { value: "109", label: "REST endpoints" },
+      { value: "20.5s → 1.1s", label: "inbound webhook response" },
+    ],
+    context:
+      "Support teams were answering customers from shared inboxes, with no record of who owned what or how long anyone had waited. The platform had to serve several organisations at once without any of them ever seeing another's data.",
+    contributions: [
+      "Clean Architecture with CQRS through MediatR: more than 100 command and query handlers, validated by a FluentValidation pipeline and saved by a unit-of-work behaviour.",
+      "Tenant isolation enforced in one place: EF Core global query filters keyed to a tenant claim in the JWT, plus middleware that rejects suspended tenants and deactivated users.",
+      "Email-driven ticketing on Postmark inbound webhooks: idempotent ingestion, RFC 5322 threading through Message-ID and References headers, sanitised HTML and Outlook winmail.dat decoding.",
+      "Attachments stored on Cloudflare R2 behind short-lived presigned URLs with per-tenant de-duplication. Moving uploads to a background job cut webhook response time from 20.5 seconds to 1.1.",
+      "A business-hours SLA engine that handles timezones, holidays and daylight saving, warns at 80% of the target and pauses while waiting on the customer, with presence-aware auto-assignment.",
+      "An integration API for customers' own AI agents: hashed API keys, HMAC-signed webhooks with retries, SSRF and DNS-rebinding protection, and race-safe ticket claiming. I wrote the Node.js reference agent.",
+    ],
+    ai: [
+      "Claude Haiku 4.5 classifies the sentiment of every inbound email in a background job; the result appears live through SignalR.",
+      "A reply-polishing assistant rewrites an agent's draft in a professional tone. The agent reviews it before anything is sent.",
+      "Prompts carry a single message and nothing else, and the classifier's output is constrained to three values, so a hostile email can at worst mislabel itself.",
+    ],
+    link: { label: "app.supportdesk.software", href: "https://app.supportdesk.software" },
+    featured: true,
+  },
+  {
+    slug: "my-race-setup",
+    title: "My Race Setup",
+    tagline: "Race-car setup management with an AI crew chief",
+    summary:
+      "A subscription platform for dirt-oval racing teams in Australia, the US, New Zealand and Canada. We rebuilt it from a legacy product in a team of two while keeping its live SQL Server data, and I built the AI Crew Chief, billing and most of the maintenance tooling.",
+    period: "2026",
+    sortYear: 2026,
+    organisation: "Nuclieos",
+    role: "Co-developer, team of two",
+    categories: ["ai", "saas"],
+    cover: { kind: "screenshot", image: myRaceSetupDashboard },
+    stack: [
+      ".NET 8",
+      "ASP.NET Core",
+      "EF Core",
+      "SQL Server",
+      "MediatR",
+      "Next.js 16",
+      "React 19",
+      "Anthropic C# SDK",
+      "Stripe",
+      "Azure DevOps",
+      "IIS",
+    ],
+    metrics: [
+      { value: "12 of 23", label: "API modules built" },
+      { value: "88", label: "endpoints" },
+      { value: "79", label: "legacy entities migrated" },
+      { value: "3", label: "AI features shipped" },
+    ],
+    context:
+      "Racers log car setups for every event and track tyres, parts, motors and budgets. The original product was showing its age, but years of racing data had to survive the rebuild intact.",
+    contributions: [
+      "Set up the five-project solution and the Azure DevOps pipeline that deploys to IIS.",
+      "Built 12 of the 23 API modules, among them parts, suppliers, sponsor updates, billing, maintenance and motor health, and their Next.js pages.",
+      "Stripe subscriptions end to end: Checkout with trials and promo codes, the Billing Portal, signature-verified webhooks, dunning emails and automatic downgrade on failed payment.",
+      "Brought EF Core migrations to a live legacy database: the app detects the old schema, records a baseline under a SQL application lock and migrates itself on start-up.",
+      "A token-secured portal that lets engine builders log rebuilds and upload receipts without creating an account.",
+    ],
+    ai: [
+      "Parts sourcing grounded in each racer's own vehicles, classes and saved suppliers, returned as typed suggestions plus a drafted enquiry email.",
+      "Parts Intel uses Claude's server-side web search tool to surface current parts news, each item with its source link.",
+      "Sponsor updates drafted from logged race results. The racer edits every draft before it is sent, and the prompt forbids inventing results or contacts.",
+    ],
+    link: { label: "dev.myracesetup.com", href: "https://dev.myracesetup.com" },
+    featured: true,
+  },
+  {
+    slug: "mcp-server",
+    title: "MCP Server",
+    tagline: "Letting AI assistants read a publication, and nothing more",
+    summary:
+      "A public Model Context Protocol server that lets assistants such as Claude search and read a client's WordPress articles. It is deliberately read-only and stateless, so it holds no credentials and scales by simply running more copies.",
+    period: "2026",
+    sortYear: 2026,
+    organisation: "Independent",
+    client: "Client project",
+    role: "Sole developer",
+    categories: ["ai", "web"],
+    cover: {
+      kind: "code",
+      // The server's real status response, as captured in the project screenshot.
+      source: `{
+  name: "mobileshalom-mcp",
+  status: "ok",
+  site: "https://mobileshalom.com",
+  endpoint: "/mcp",
+  transport: "streamable-http"
+}`,
+    },
+    stack: ["Node.js 20", "Express 5", "MCP SDK", "Zod", "WordPress REST API", "Streamable HTTP"],
+    metrics: [
+      { value: "4", label: "schema-validated tools" },
+      { value: "0", label: "credentials held" },
+      { value: "10s", label: "upstream timeout" },
+    ],
+    context:
+      "The client wanted AI assistants to be able to search and read their published articles. The endpoint is public and needs no login, so it had to be useless for anything but reading.",
+    contributions: [
+      "Four tools for search, recent posts, full articles and categories, each with a Zod schema that becomes the JSON Schema the model sees.",
+      "Stateless Streamable HTTP: a fresh server per request, so it runs behind any load balancer.",
+      "HTML-to-text conversion written for model consumption, with single-pass entity decoding so encoded text can never turn back into markup.",
+      "Hardened for a public endpoint: upstream timeouts, pagination caps, a 1 MB body limit and JSON-RPC errors that never leak a stack trace.",
+    ],
+    link: { label: "mcp.mobileshalom.com", href: "https://mcp.mobileshalom.com/" },
+    featured: false,
+  },
+  {
+    slug: "americorps",
+    title: "AmeriCorps",
+    tagline: "Enterprise .NET and mobile apps for a U.S. federal agency",
+    summary:
+      "At Devsinc I led a backend team of about fifteen developers delivering enterprise applications for AmeriCorps, the U.S. federal agency for national service, and built its Android and iOS apps from the Angular codebase.",
+    period: "2025",
+    sortYear: 2025,
+    organisation: "Devsinc",
+    client: "AmeriCorps",
+    role: "Backend team lead",
+    categories: ["mobile", "portal"],
+    cover: { kind: "screenshot", image: americorpsHome },
+    stack: ["C#", "ASP.NET Core", "Entity Framework", "Azure", "Angular", "Ionic", "Capacitor"],
+    metrics: [
+      { value: "~15", label: "developers led" },
+      { value: "2", label: "mobile platforms" },
+    ],
+    context:
+      "AmeriCorps, the U.S. federal agency for national service, works with vendor teams to build and run its systems. Devsinc delivered enterprise .NET applications and mobile apps for it.",
+    contributions: [
+      "Led the backend team and ran requirement sessions with stakeholders, turning business needs into specifications the team could build.",
+      "Designed database schemas and system integrations for enterprise .NET applications on Azure.",
+      "Built Android and iOS apps from the existing Angular codebase with Ionic and Capacitor, including fingerprint and face unlock.",
+      "Implemented unit and integration testing and improved performance through tuning and refactoring.",
+    ],
+    link: { label: "americorps.gov", href: "https://www.americorps.gov/" },
+    featured: true,
+  },
+  {
+    slug: "teranet-undertakings",
+    title: "Teranet Undertakings",
+    tagline: "Monitoring more than 10,000 properties for 50 tenants",
+    summary:
+      "A multi-tenant property-monitoring platform built as about fifteen .NET 9 microservices, with automated payments and the monthly and daily reports its tenants rely on.",
+    period: "2024 – 2025",
+    sortYear: 2025,
+    organisation: "Insignia Business Solutions",
+    role: "Software engineer",
+    categories: ["saas"],
+    cover: { kind: "screenshot", image: teranetMonitoring },
+    stack: [".NET 9", "Microservices", "Finbuckle", "IdentityServer4", "EF Core", "RabbitMQ", "Hangfire", "Sentry", "SQL Server", "Moneris"],
+    metrics: [
+      { value: "10,000+", label: "properties monitored" },
+      { value: "50", label: "tenants" },
+      { value: "~15", label: "microservices" },
+    ],
+    context:
+      "Organisations subscribe to monitor properties. The platform had to keep fifty tenants strictly apart and run billing and reporting without manual work.",
+    contributions: [
+      "Built the platform as roughly fifteen .NET 9 microservices with Finbuckle multi-tenancy, IdentityServer4 and RabbitMQ between services.",
+      "Integrated Moneris for automated subscription payments and SMTP for notifications.",
+      "Automated monthly tenant reports and daily property-subscription summaries with Hangfire.",
+      "Designed and optimised the SQL Server schema, with Sentry for error tracking in production.",
+    ],
+    featured: true,
+  },
+  {
+    slug: "dodocs",
+    title: "DoDocs",
+    tagline: "Document management for 20 firms and 100,000 documents",
+    summary:
+      "A multi-tenant document-management system. I designed its REST APIs within a microservices architecture and made bulk uploads fast by moving the heavy work off the request path.",
+    period: "2023 – 2025",
+    sortYear: 2024,
+    organisation: "Insignia Business Solutions",
+    role: ".NET backend engineer",
+    categories: ["saas", "portal"],
+    cover: { kind: "screenshot", image: dodocsIdv },
+    stack: [".NET", "IdentityServer4", "RabbitMQ", "Sentry", "SQL Server", "Microservices"],
+    metrics: [
+      { value: "20", label: "client firms" },
+      { value: "~100,000", label: "documents" },
+    ],
+    context:
+      "Firms needed a secure, multi-tenant place to manage their documents, at volumes where slow uploads and slow queries quickly become a daily problem.",
+    contributions: [
+      "Designed scalable REST APIs secured with IdentityServer4 in a multi-tenant microservices architecture.",
+      "Sped up bulk document uploads by moving processing to background jobs.",
+      "Used RabbitMQ for asynchronous communication and Sentry for real-time error tracking.",
+      "Optimised SQL Server schemas and queries and led third-party integrations.",
+    ],
+    link: { label: "portal.dodocs.ca", href: "https://portal.dodocs.ca" },
+    featured: false,
+  },
+  {
+    slug: "doclientportal",
+    title: "DoClientPortal",
+    tagline: "Subscriptions, payments and accounting for client firms",
+    summary:
+      "A client portal with paid subscriptions and accounting. I led its Moneris payment integration and built the features around it.",
+    period: "2023 – 2025",
+    sortYear: 2024,
+    organisation: "Insignia Business Solutions",
+    role: ".NET backend engineer",
+    categories: ["portal"],
+    cover: { kind: "screenshot", image: doclientportalActivity },
+    stack: [".NET", "Moneris", "SQL Server"],
+    metrics: [
+      { value: "~100", label: "subscribers" },
+      { value: "$250", label: "per subscription" },
+      { value: "~$25K", label: "processed" },
+    ],
+    context: "Firms needed their clients to subscribe, pay and keep their accounts in order without manual follow-up.",
+    contributions: [
+      "Led the Moneris payment gateway integration.",
+      "Built accounting features, automated email notifications and activity alerts.",
+      "Added user verification to protect accounts and transactions.",
+    ],
+    link: { label: "login.doclientportal.com", href: "https://login.doclientportal.com" },
+    featured: false,
+  },
+  {
+    slug: "dasco-online",
+    title: "Dasco Online",
+    tagline: "B2B ordering for an Australian supply group, wired into SAP",
+    summary:
+      "A B2B e-commerce platform for Dasco Supply Group. I maintain it alongside two connected applications and built the two-way SAP integration behind its orders, invoices, products and credit.",
+    period: "2025 – Present",
+    sortYear: 2026,
+    organisation: "Nuclieos",
+    client: "Dasco Supply Group",
+    role: "Developer, integrations and maintenance",
+    categories: ["commerce", "web"],
+    cover: { kind: "screenshot", image: dascoOnlineCatalogue },
+    stack: ["ASP.NET Web Forms", ".NET Framework 4.8", "C#", "SQL Server", "SAP", "Bootstrap", "jQuery"],
+    metrics: [
+      { value: "~50", label: "orders a day" },
+      { value: "2-way", label: "SAP synchronisation" },
+      { value: "3", label: "connected applications" },
+    ],
+    context:
+      "Trade customers order daily, and every order, invoice, price and credit limit has to agree with SAP, the system the business actually runs on.",
+    contributions: [
+      "Two-way SAP integration for orders, invoices, products and credit.",
+      "Enhancements across product search, cart and checkout, collaborative wish lists and PDF invoices.",
+      "Maintenance of three interconnected ASP.NET applications that share one database.",
+    ],
+    link: { label: "dascosupplygroup.com.au", href: "https://dascosupplygroup.com.au" },
+    featured: false,
+  },
+  {
+    slug: "dasco-sales-portal",
+    title: "Dasco Sales & CRM Portal",
+    tagline: "The sales team's ordering and customer workspace",
+    summary:
+      "An internal sales and CRM portal for Dasco's sales team, built on ASP.NET MVC 5, covering bulk ordering, customer management, pricing and the dashboards the team uses to plan.",
+    period: "2025 – Present",
+    sortYear: 2026,
+    organisation: "Nuclieos",
+    client: "Dasco Supply Group",
+    role: "Developer, design and build",
+    categories: ["portal", "commerce"],
+    cover: { kind: "screenshot", image: dascoSalesHome },
+    stack: ["ASP.NET MVC 5", "Entity Framework 6", "SQL Server"],
+    metrics: [],
+    context:
+      "The sales team needed one place to place bulk orders, manage customers and price with confidence.",
+    contributions: [
+      "Bulk ordering and customer management modules with real-time inventory.",
+      "A dynamic pricing engine with margin validation, so no quote goes out below cost.",
+      "Automated order workflows and sales analytics dashboards.",
+    ],
+    link: { label: "sales.dascosupplygroup.com.au", href: "https://sales.dascosupplygroup.com.au" },
+    featured: false,
+  },
+  {
+    slug: "kea-international",
+    title: "KEA International",
+    tagline: "A fast, responsive corporate site in Angular 18",
+    summary: "An independent project: a corporate website built in Angular 18, tuned for speed with lazy loading and given life with restrained animation.",
+    period: "2024",
+    sortYear: 2024,
+    organisation: "Independent",
+    role: "Sole developer",
+    categories: ["web"],
+    cover: { kind: "screenshot", image: keaInternationalHome },
+    stack: ["Angular 18", "TypeScript", "RxJS"],
+    metrics: [],
+    context: "A corporate website built independently, with performance and responsive design as the priorities.",
+    contributions: [
+      "Lazy-loaded routes and a responsive layout across screen sizes.",
+      "Custom directives for form validation and DOM behaviour.",
+      "Angular animations for page transitions, buttons and form submission.",
+    ],
+    link: { label: "keainternational.org", href: "https://keainternational.org" },
+    featured: false,
+  },
+  {
+    slug: "techxlogi",
+    title: "TechXlogi",
+    tagline: "A company website with its own CMS, lead capture and careers",
+    summary:
+      "The website of TechXlogi, a software engineering and digital growth company in Lahore. I built it end to end on Next.js 16 with Payload CMS inside the same app, so the team publishes services, case studies, articles and job openings themselves, and every enquiry and application lands in one place.",
+    period: "2026",
+    sortYear: 2026,
+    organisation: "Independent",
+    client: "TechXlogi",
+    role: "Sole developer",
+    categories: ["web"],
+    cover: { kind: "screenshot", image: techxlogiHome },
+    stack: [
+      "Next.js 16",
+      "React 19",
+      "Payload CMS 3",
+      "PostgreSQL",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Zod",
+      "Vercel Blob",
+      "Vitest",
+      "Playwright",
+      "GSAP",
+    ],
+    metrics: [
+      { value: "26", label: "page routes" },
+      { value: "12", label: "CMS collections" },
+      { value: "75", label: "automated tests" },
+    ],
+    context:
+      "TechXlogi offers a wide range of services, from custom software and AI to SEO and Google Ads. The site had to explain all of it to prospective clients, turn visits into enquiries and job applications, and let the team update content without a developer.",
+    contributions: [
+      "Payload CMS 3 embedded in the Next.js 16 app, with 12 collections (posts, case studies, jobs, leads, CVs and more) and drafts and version history for articles and case studies.",
+      "Server-rendered pages with hourly revalidation: 40 service pages, 8 industries and 60 technologies are prebuilt, and CMS hooks refresh exactly the pages an edit touches, including the old address when a slug changes.",
+      "Four forms on Server Actions (a multi-step project planner, contact, free audit and job applications), validated with Zod on the server and protected by a honeypot, a minimum fill time and per-IP rate limits.",
+      "CV uploads checked by file signature (PDF or Word), capped to fit the hosting request limit, stored in Vercel Blob and readable only by signed-in staff; a stray file is removed if the application fails to save.",
+      "Consent-first tracking: Google Consent Mode v2 starts denied, the Global Privacy Control signal is honoured, and campaign attribution is kept only after the visitor allows marketing cookies.",
+      "Structured data on 16 routes (Organization, Service, JobPosting, FAQPage, BlogPosting and more), security headers (HSTS, frame, referrer and permissions policies), and 75 automated tests across Vitest and Playwright.",
+    ],
+    link: { label: "techxlogi.com", href: "https://techxlogi.com" },
+    featured: false,
+  },
+];

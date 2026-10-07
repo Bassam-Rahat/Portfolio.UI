@@ -1,0 +1,198 @@
+.header {
+  row-gap: var(--space-5);
+  padding-block: clamp(40px, 7vw, 104px) var(--space-8);
+}
+
+.title {
+  grid-column: 1 / span 5;
+  font-size: var(--step-4);
+  font-weight: 800;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+}
+
+.lede {
+  grid-column: 6 / -1;
+  align-self: end;
+  font-family: var(--font-sans);
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ink-2);
+}
+
+.story {
+  row-gap: var(--space-7);
+}
+
+.prose {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: var(--space-5);
+  max-width: 64ch;
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+.facts {
+  grid-column: 9 / -1;
+}
+
+.facts dl {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.facts dl > div {
+  display: grid;
+  gap: 2px;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.facts dt {
+  font-size: 0.8125rem;
+  font-stretch: 87.5%;
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.section {
+  margin-top: var(--section-gap);
+}
+
+.career {
+  list-style: none;
+}
+
+.position {
+  row-gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.position:first-child {
+  padding-top: 0;
+}
+
+.when {
+  grid-column: 1 / span 3;
+  color: var(--muted);
+}
+
+.place {
+  font-size: 0.875rem;
+}
+
+.what {
+  grid-column: 4 / span 6;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.company {
+  font-size: var(--step-2);
+}
+
+.role {
+  color: var(--muted);
+}
+
+.summary {
+  margin-top: var(--space-2);
+  color: var(--ink-2);
+}
+
+.highlights {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  padding-left: 1.1em;
+  color: var(--ink-2);
+}
+
+.highlights li::marker {
+  color: var(--accent);
+}
+
+.projects {
+  grid-column: 11 / -1;
+  font-size: 0.9375rem;
+}
+
+.projectsLabel {
+  margin-bottom: var(--space-1);
+  font-size: 0.8125rem;
+  font-stretch: 87.5%;
+  color: var(--muted);
+}
+
+.projects ul {
+  display: grid;
+  gap: 2px;
+  list-style: none;
+}
+
+.projects a:hover {
+  color: var(--accent);
+}
+
+.skills {
+  margin: 0;
+}
+
+.skills > div {
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.skills > div:first-child {
+  padding-top: 0;
+}
+
+.skillName {
+  grid-column: 1 / span 3;
+  font-weight: 500;
+}
+
+.skillItems {
+  grid-column: 4 / -1;
+  margin: 0;
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .title,
+  .lede,
+  .prose,
+  .facts {
+    grid-column: 1 / -1;
+  }
+
+  .when {
+    grid-column: 1 / -1;
+  }
+
+  .what {
+    grid-column: 1 / span 9;
+  }
+
+  .projects {
+    grid-column: 10 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .what,
+  .projects,
+  .skillName,
+  .skillItems {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,26 @@
+.header {
+  row-gap: var(--space-5);
+  padding-block: clamp(40px, 7vw, 104px) var(--space-7);
+}
+
+.title {
+  grid-column: 1 / span 6;
+  font-size: var(--step-4);
+  font-weight: 800;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+}
+
+.intro {
+  grid-column: 8 / -1;
+  align-self: end;
+  max-width: 46ch;
+  color: var(--ink-2);
+}
+
+@media (max-width: 860px) {
+  .title,
+  .intro {
+    grid-column: 1 / -1;
+  }
+}

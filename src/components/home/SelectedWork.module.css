@@ -1,0 +1,230 @@
+.section {
+  margin-top: var(--section-gap);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-5);
+  list-style: none;
+}
+
+.row {
+  align-items: center;
+  row-gap: var(--space-5);
+  padding: var(--space-3);
+}
+
+.cover {
+  grid-column: 1 / span 7;
+}
+
+.body {
+  grid-column: 8 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5) var(--space-4) var(--space-3);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.index {
+  color: var(--muted);
+}
+
+/* One step below the section heading, so the section still reads as the section. */
+.title {
+  margin-top: var(--space-1);
+  font-size: var(--step-2);
+  font-weight: 700;
+  line-height: 1.12;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+/* The title link covers the whole card, so the cover is clickable too. */
+.stretch {
+  text-decoration: none;
+}
+
+.stretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-l);
+}
+
+.stretch:focus-visible {
+  outline: none;
+}
+
+.stretch:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.tagline {
+  font-size: var(--step-1);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.metric {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+}
+
+.metricValue {
+  font-family: var(--font-figure);
+  font-stretch: 112%;
+  font-size: var(--step-2);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+/* Three facts side by side in a soft inset strip. */
+.facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.4fr);
+  gap: var(--space-5);
+  margin: var(--space-1) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.facts dt {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.row:hover .title {
+  color: var(--accent);
+}
+
+/* Closing link to the full catalogue: the other projects by name only. */
+.more {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  overflow: hidden;
+  background:
+    radial-gradient(60% 140% at 100% 50%, var(--glow), transparent 70%),
+    var(--bg-elev);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.moreCount {
+  flex: none;
+  font-family: var(--font-figure);
+  font-size: clamp(2.75rem, 2rem + 2.4vw, 4rem);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+
+.moreText {
+  display: grid;
+  flex: 1;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.moreTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 700;
+  font-stretch: 104%;
+  letter-spacing: -0.03em;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.more:hover .moreTitle {
+  color: var(--accent);
+}
+
+.moreNames {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+/* Lines break between names, never inside one. */
+.moreName {
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .cover,
+  .body {
+    grid-column: 1 / -1;
+  }
+
+  .body {
+    padding: var(--space-2) var(--space-3) var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .more {
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+    padding: var(--space-5);
+  }
+
+  .moreText {
+    flex-basis: 100%;
+    order: 1;
+  }
+
+  .more :global(.round-arrow) {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .facts div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .moreTitle {
+    transition: none;
+  }
+}

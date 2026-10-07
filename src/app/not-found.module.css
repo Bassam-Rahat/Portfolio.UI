@@ -1,0 +1,33 @@
+.wrap {
+  row-gap: var(--space-5);
+  padding-block: clamp(64px, 12vw, 176px);
+}
+
+.code {
+  grid-column: 1 / -1;
+}
+
+.title {
+  grid-column: 1 / span 9;
+  font-size: var(--step-4);
+  font-weight: 800;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+}
+
+.text {
+  grid-column: 1 / span 6;
+  font-size: var(--step-1);
+  color: var(--ink-2);
+}
+
+.text a {
+  text-decoration-color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .title,
+  .text {
+    grid-column: 1 / -1;
+  }
+}

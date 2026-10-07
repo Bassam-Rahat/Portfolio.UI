@@ -1,0 +1,468 @@
+/* All sizes use --u (1% of the cover's width), set on the cover frame. */
+
+/* ---------- Placeholder text ---------- */
+
+.line {
+  display: block;
+  flex: none;
+  height: calc(var(--u) * 1.5);
+  border-radius: 999px;
+}
+
+.plain {
+  background: var(--hairline-strong);
+}
+
+.faint {
+  background: color-mix(in srgb, var(--hairline-strong) 55%, transparent);
+}
+
+.accent {
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.thick {
+  height: calc(var(--u) * 2.8);
+}
+
+/* ---------- Chart: a real figure over an illustrative chart ---------- */
+
+.label {
+  font-size: max(9px, calc(var(--u) * 2.4));
+  color: var(--muted);
+}
+
+.label::first-letter {
+  text-transform: uppercase;
+}
+
+.value {
+  margin-top: calc(var(--u) * 0.4);
+  font-family: var(--font-figure);
+  font-size: calc(var(--u) * 7.2);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.bars,
+.area {
+  height: calc(var(--u) * 19);
+  margin-top: calc(var(--u) * 3.4);
+}
+
+.bars {
+  display: flex;
+  align-items: end;
+  gap: calc(var(--u) * 1.3);
+}
+
+.bars span {
+  flex: 1;
+  border-radius: calc(var(--u) * 0.6) calc(var(--u) * 0.6) 1px 1px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    color-mix(in srgb, var(--accent) 62%, transparent)
+  );
+}
+
+/* The latest bar is the one that matters. */
+.bars span:last-child {
+  background: linear-gradient(to top, color-mix(in srgb, var(--accent) 35%, transparent), var(--accent));
+}
+
+.area {
+  position: relative;
+}
+
+.areaFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 34%, transparent), transparent);
+}
+
+.area svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.area path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* ---------- Chat: a question and an AI answer ---------- */
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 2.6);
+  padding-right: calc(var(--u) * 3);
+}
+
+.ask,
+.answer {
+  display: grid;
+  gap: calc(var(--u) * 1.2);
+  padding: calc(var(--u) * 2.2) calc(var(--u) * 2.6);
+}
+
+.ask {
+  align-self: flex-end;
+  justify-items: end;
+  width: 50%;
+  border-radius: calc(var(--u) * 2.4) calc(var(--u) * 2.4) calc(var(--u) * 0.6) calc(var(--u) * 2.4);
+  background: var(--surface);
+}
+
+.answerRow {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 2);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(var(--u) * 5);
+  height: calc(var(--u) * 5);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  font-size: calc(var(--u) * 2.4);
+  color: var(--accent);
+}
+
+.answer {
+  width: 68%;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: calc(var(--u) * 0.6) calc(var(--u) * 2.4) calc(var(--u) * 2.4) calc(var(--u) * 2.4);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg-elev));
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(var(--u) * 0.6);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 1.2) calc(var(--u) * 1.2) calc(var(--u) * 2.6);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+}
+
+.send {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 4.2);
+  height: calc(var(--u) * 4.2);
+  border-radius: 50%;
+  background: var(--accent);
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+
+/* ---------- Code: an editor ---------- */
+
+.code {
+  display: grid;
+  gap: calc(var(--u) * 1.7);
+  padding-top: calc(var(--u) * 0.6);
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  height: calc(var(--u) * 1.6);
+}
+
+.lineNo {
+  flex: none;
+  width: calc(var(--u) * 2.6);
+  margin-right: calc(var(--u) * 1.6);
+  font-family: var(--font-data);
+  font-size: max(7px, calc(var(--u) * 1.8));
+  text-align: right;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* ---------- Shop: search and product tiles ---------- */
+
+.shopBar {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 2);
+  padding-right: calc(var(--u) * 3);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: calc(var(--u) * 4.6);
+  padding-inline: calc(var(--u) * 2.4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+}
+
+.cart {
+  flex: none;
+  width: calc(var(--u) * 4.6);
+  height: calc(var(--u) * 4.6);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 calc(var(--u) * 1.5) var(--bg-elev);
+  outline: 1px solid var(--hairline-strong);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(var(--u) * 2.4);
+  margin-top: calc(var(--u) * 3);
+  padding-right: calc(var(--u) * 3);
+}
+
+.tile {
+  display: grid;
+  gap: calc(var(--u) * 1.4);
+}
+
+.thumb {
+  aspect-ratio: 1;
+  margin-bottom: calc(var(--u) * 0.6);
+  border-radius: calc(var(--u) * 1.6);
+  background:
+    radial-gradient(circle at 50% 58%, color-mix(in srgb, var(--accent) 45%, transparent) 0 24%, transparent 25%),
+    var(--surface);
+}
+
+.tile:nth-child(2) .thumb {
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 30%, transparent) 0 0) 50% 60% / 40% 40% no-repeat,
+    var(--surface);
+}
+
+.tile:nth-child(3) .thumb {
+  background:
+    radial-gradient(circle at 50% 58%, var(--hairline-strong) 0 26%, transparent 27%),
+    var(--surface);
+}
+
+/* ---------- Table and files: rows with a status ---------- */
+
+.head {
+  display: flex;
+  gap: calc(var(--u) * 3);
+  padding: 0 0 calc(var(--u) * 1.8) calc(var(--u) * 7);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: calc(var(--u) * 4.6) minmax(0, 1fr) calc(var(--u) * 8);
+  align-items: center;
+  gap: calc(var(--u) * 2.4);
+  padding: calc(var(--u) * 1.6) calc(var(--u) * 3) calc(var(--u) * 1.6) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.avatar {
+  width: calc(var(--u) * 4.6);
+  height: calc(var(--u) * 4.6);
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.file {
+  width: calc(var(--u) * 3.8);
+  height: calc(var(--u) * 4.6);
+  margin-inline: auto;
+  border: 1px solid var(--hairline-strong);
+  border-radius: calc(var(--u) * 0.6);
+  background: var(--surface);
+  box-shadow: inset 0 calc(var(--u) * 1.1) 0 color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.cell {
+  display: grid;
+  gap: calc(var(--u) * 1);
+}
+
+.status {
+  height: calc(var(--u) * 2.8);
+  border-radius: 999px;
+}
+
+.done {
+  background: rgb(34 197 94 / 0.16);
+}
+
+.open {
+  background: var(--accent-soft);
+}
+
+.idle {
+  background: var(--surface);
+}
+
+/* ---------- Phones: the same app on two platforms ---------- */
+
+.phones {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: calc(var(--u) * 6);
+  padding-top: calc(var(--u) * 0.6);
+}
+
+.phone {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 2.2);
+  width: calc(var(--u) * 22);
+  height: calc(var(--u) * 42);
+  padding: calc(var(--u) * 2.2);
+  border: 1px solid var(--hairline-strong);
+  border-radius: calc(var(--u) * 3.6);
+  background: var(--surface);
+  translate: 0 calc(var(--u) * var(--lift, 0) * 3);
+}
+
+.notch {
+  align-self: center;
+  width: 34%;
+  height: calc(var(--u) * 1.4);
+  margin-bottom: calc(var(--u) * 0.6);
+  border-radius: 999px;
+  background: var(--hairline-strong);
+}
+
+.phoneRow {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.6);
+  padding: calc(var(--u) * 1.4);
+  border-radius: calc(var(--u) * 1.4);
+  background: var(--bg-elev);
+}
+
+.phoneDot {
+  flex: none;
+  width: calc(var(--u) * 3);
+  height: calc(var(--u) * 3);
+  border-radius: 50%;
+  background: var(--hairline-strong);
+}
+
+/* ---------- Page: a marketing site ---------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 2.6);
+  padding-right: calc(var(--u) * 3);
+}
+
+.logo {
+  width: calc(var(--u) * 3.4);
+  height: calc(var(--u) * 3.4);
+  margin-right: calc(var(--u) * 2);
+  border-radius: calc(var(--u) * 0.9);
+  background: var(--accent);
+}
+
+.navButton {
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 3.8);
+  margin-left: auto;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+}
+
+.heroBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+  gap: calc(var(--u) * 4);
+  margin-top: calc(var(--u) * 5);
+  padding-right: calc(var(--u) * 3);
+}
+
+.heroText {
+  display: grid;
+  gap: calc(var(--u) * 1.8);
+}
+
+.heroText > :nth-child(3) {
+  margin-top: calc(var(--u) * 1.2);
+}
+
+.pageCta {
+  width: calc(var(--u) * 13);
+  height: calc(var(--u) * 4.4);
+  margin-top: calc(var(--u) * 1.6);
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.heroArt {
+  aspect-ratio: 1;
+  border-radius: calc(var(--u) * 2);
+  background:
+    radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 62%),
+    var(--surface);
+}
+
+/* ---------- Screenshot: a real screen filling the window ---------- */
+
+/* Anchored top left. On card covers (--zoom-in: 1) a screenshot is enlarged
+   by its own --shot-zoom, so wide captures read at a sensible scale instead
+   of shrinking to fit; case studies (--zoom-in: 0) show the full width. */
+.screenshot {
+  display: block;
+  width: calc((1 + var(--zoom-in, 1) * (var(--shot-zoom, 1) - 1)) * 100%);
+  max-width: none;
+  height: auto;
+}
+
+/* ---------- Source: real code or output ---------- */
+
+.source {
+  gap: calc(var(--u) * 1.5);
+  font-family: var(--font-data);
+  font-size: max(9px, calc(var(--u) * 2.3));
+}
+
+.source .codeLine {
+  height: auto;
+  line-height: 1.5;
+}
+
+.sourceText {
+  white-space: pre;
+}
+
+.key {
+  color: var(--ink);
+}
+
+.punct {
+  color: var(--muted);
+}
+
+.string {
+  color: var(--accent);
+}
