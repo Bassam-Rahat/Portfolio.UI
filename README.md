@@ -1,5 +1,7 @@
 # Bassam Rahat — portfolio
 
+**Live:** https://bassam-rahat.vercel.app (deployed on Vercel; every push to `main` goes live).
+
 Personal portfolio built with Next.js 16 (App Router, Cache Components) and React 19.
 Every page is rendered on the server and prerendered at build time from static content; the
 browser only runs JavaScript for the theme switch, the project filters and the local clock.
