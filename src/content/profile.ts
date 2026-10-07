@@ -1,5 +1,16 @@
 import type { Capability, NavItem, Profile, SkillGroup } from "@/types/domain";
 
+/**
+ * The public address, used for canonical URLs, the sitemap, JSON-LD and Open
+ * Graph images. NEXT_PUBLIC_SITE_URL wins when set; on Vercel the project's
+ * production domain is used automatically; locally it is localhost.
+ */
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
 export const profile: Profile = {
   name: "Bassam Rahat",
   role: "Senior Software Engineer",
@@ -29,8 +40,7 @@ export const profile: Profile = {
     stackoverflow: "https://stackoverflow.com/users/22238420/bassam",
   },
   resumePath: "/bassam-rahat-resume.pdf",
-  // Set NEXT_PUBLIC_SITE_URL to the real domain when deploying (used for canonical URLs, sitemap and OG images).
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  siteUrl: resolveSiteUrl(),
   ledger: [
     { value: "~10,000", label: "support tickets a month, across 3 organisations", proof: "supportdesk" },
     { value: "10,000+", label: "properties monitored for 50 tenants", proof: "teranet-undertakings" },

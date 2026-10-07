@@ -14,8 +14,9 @@ npm start        # serve the production build
 npm run lint
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` to the real domain before deploying (used for canonical URLs, the
-sitemap, JSON-LD and Open Graph images).
+The public address (canonical URLs, sitemap, JSON-LD, Open Graph images) comes from
+`NEXT_PUBLIC_SITE_URL` if set, otherwise from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, so a
+Vercel deployment needs no configuration. Set `NEXT_PUBLIC_SITE_URL` when hosting elsewhere.
 
 ## Editing content
 
