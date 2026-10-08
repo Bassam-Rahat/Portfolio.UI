@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Fragment_Mono, Hubot_Sans, Mona_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -80,6 +81,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(personJsonLd()) }}
         />
+        {/* Vercel Web Analytics: cookieless, anonymous page-view counts (only active on Vercel). */}
+        <Analytics />
       </body>
     </html>
   );
